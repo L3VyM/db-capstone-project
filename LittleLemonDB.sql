@@ -67,13 +67,32 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `mydb`.`MenuItems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`MenuItems` (
+  `menuItemsID` INT NOT NULL,
+  `courseName` VARCHAR(45) NOT NULL,
+  `startName` VARCHAR(45) NOT NULL,
+  `desertName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`menuItemsID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `mydb`.`Menu`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Menu` (
   `menuID` INT NOT NULL,
   `description` VARCHAR(255) NOT NULL,
   `price` INT NOT NULL,
-  PRIMARY KEY (`menuID`))
+  `menuItemsID` INT NOT NULL,
+  PRIMARY KEY (`menuID`),
+  INDEX `menuItemsID_idx` (`menuItemsID` ASC) VISIBLE,
+  CONSTRAINT `menuItemsID`
+    FOREIGN KEY (`menuItemsID`)
+    REFERENCES `mydb`.`MenuItems` (`menuItemsID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
